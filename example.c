@@ -5,23 +5,22 @@
 typedef struct {
     unsigned sp_len;
     unsigned n_sp;
-    double treshhold;
 } context_t;
 
 
 void *create_context(unsigned sp_len, unsigned n_sp)
 {
-    double treshhold = 3.;
+    printf("Creating context, sp_len: %d, n_sp: %d\n", sp_len, n_sp);
     context_t *context;
     context = (context_t *)malloc(sizeof(context_t));
     context->sp_len = sp_len;
     context->n_sp = n_sp;
-    context->treshhold = treshhold;
     return (void *)context;
 }
 
 void free_context(void *context)
-{
+{   
+    printf("Freeing context\n");
     free(context);
 }
 
@@ -30,8 +29,7 @@ void calc_argmax(void *context, double *array, double *out, int *status)
     context_t *ctx = (context_t *)context;
     unsigned n_sp = ctx->n_sp;
     unsigned sp_len = ctx->sp_len;
-    double treshhold = ctx->treshhold;
-    double average, stddevsq, maxdevsq, max, tmp;
+    double max;
     double *sp;
     int i, j;
 
